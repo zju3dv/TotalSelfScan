@@ -12,7 +12,15 @@ Please refer to the file `train_pipeline.sh`, where we describe the training and
 
 ## Dataset
 
-The dataset will be available soon and we will update the download link here.
+The dataset can be available [here](https://zjueducn-my.sharepoint.com/:u:/g/personal/12021137_zju_edu_cn/EdhoMoT9JaJFlC3BQrmCWykBErOCx5Q21CXp2mTGikdAJw?e=umAl4n)
+
+```
+cd xxx/TotalSelfScan
+mkdir data
+cd data
+mkdir zju_snapshot
+mv xxx/male-djt415_tshirt-smplh ./ 
+```
 
 ## Citation
 

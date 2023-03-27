@@ -1,0 +1,206 @@
+task: 'total'
+gpus: [0]
+
+parent_cfg: 'configs/anisdf_s9p.yaml'
+
+train_dataset_module: 'lib.datasets.totalselfscan.tpose_bfh_multi_dataset_base_total'
+test_dataset_module: 'lib.datasets.totalselfscan.tpose_bfh_multi_dataset_base_total'
+network_module: 'lib.networks.totalselfscan.anisdf_bfh_multi_network_nointer_trick_rgb_base_total'
+evaluator_module: 'lib.evaluators.if_nerf_full'
+renderer_module: 'lib.networks.renderer.tpose_renderer'
+trainer_module: 'lib.train.trainers.tpose_trainer'
+
+
+train:
+    dataset: Djt415_tshirt_Train
+test:
+    dataset: Djt415_tshirt_Test
+
+data:
+    hand_bound_reduce: 0.1
+    body_hand_bound_overlap: 0.1
+    face_bound_reduce: 0.07
+    body_face_bound_overlap: 0.05 #0.005
+
+# evaluation setting
+evaluation:
+    test_view: [3]
+    begin_ith_frame: 0
+    frame_interval: 1
+    num_train_frame: 1000
+    eval_full: True
+
+
+# training setting
+resume: True
+exp_name: tzr_smplh_bfh_multi
+init_sdf: tzr_smplh_multi #tzr_smplh #
+
+new_hand: False
+bw_loss_weight: 0
+zero_sdf_weigth: [[0, 30000], [0, 1]]
+rgb_noise_weigth: [[0, 15000], [0, 10]]
+
+part_type: 10
+handl_mesh: 'no'
+
+erode_edge: False
+num_trained_mask: 500
+
+train_with_smooth_viewdir: False
+debug:
+    use_mean_view_dir: False
+    sample_less_view: False
+    transform_face: True
+    single_part: False
+    all_video_train: False
+
+
+# data options
+# H: 1920
+# W: 1080
+ratio: 1.
+training_view: [0]
+handl_training_view: [0]
+handr_training_view: [0]
+#init_sdf: 'no_pretrain'
+num_latent_code: 500
+fix_num_train_frame: 90
+num_train_frame: 90
+begin_ith_frame: 500
+frame_interval: 10
+fix_face_num_train_frame: 100
+face_num_train_frame: 100
+face_begin_ith_frame: 0
+face_frame_interval: 5
+# hand
+handl_begin_ith_frame: 500  # the first smpl
+fix_handl_num_train_frame: 125  # number of smpls
+handl_num_train_frame: 125  # number of smpls
+handl_frame_interval: 16
+
+handr_begin_ith_frame: 400  # the first smpl
+fix_handr_num_train_frame: 125  # number of smpls
+handr_num_train_frame: 125  # number of smpls
+handr_frame_interval: 16
+
+body_sample_ratio: 0.7
+interhand_sample_ratio: 0.3
+
+smpl: 'smpl'
+vertices: 'vertices'
+params: 'params'
+big_box: True
+#voxel_size: [0.002, 0.002, 0.002]
+
+novel_pose_cfg:
+    training_view: [0]
+
+
+novel_view_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.monocular_rotate_dataset_bfh'
+    test_dataset_module: 'lib.datasets.totalselfscan.monocular_rotate_dataset_bfh'
+    renderer_module: 'lib.networks.renderer.tpose_renderer_msk'
+    visualizer_module: 'lib.visualizers.if_nerf_demo'
+
+    test:
+        sampler: ''
+
+forward_rendering_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    network_module: 'lib.networks.totalselfscan.anisdf_bfh_multi_network_nointer_trick_rgb_base_total_union'
+
+    renderer_module: 'lib.networks.renderer.tpose_forward_renderer'
+    trainer_module: 'lib.train.trainers.tpose_forward_trainer'
+
+    N_samples: 5
+    z_interval: 0.04
+    select_view: True
+    process:
+        smooth_rgb: True
+    test:
+        frame_sampler_interval: 10
+
+    novel_pose_cfg:
+        test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_novel_pose_dataset'
+        renderer_module: 'lib.networks.renderer.tpose_forward_renderer'
+        trainer_module: 'lib.train.trainers.tpose_forward_trainer'
+        visualizer_module: 'lib.visualizers.if_nerf_novel_pose'
+
+        select_view: True
+
+        test:
+            frame_sampler_interval: 3
+            sampler: 'FrameSampler'
+
+    novel_view_cfg:
+        test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_novel_view_dataset_2'
+        renderer_module: 'lib.networks.renderer.tpose_forward_renderer'
+        trainer_module: 'lib.train.trainers.tpose_forward_trainer'
+        visualizer_module: 'lib.visualizers.if_nerf_novel_view'
+
+        select_view: True
+
+
+latent_optim_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    renderer_module: 'lib.networks.renderer.tpose_latent_renderer'
+    trainer_module: 'lib.train.trainers.tpose_latent_trainer'
+
+    select_view: True
+    train:
+        epoch: 30
+
+
+    N_samples: 5
+    z_interval: 0.005
+    fix_num_train_frame: 1
+    num_train_frame: 1
+    frame_interval: 100
+    fix_face_num_train_frame: 0
+    face_num_train_frame: 0
+    fix_handl_num_train_frame: 0  # number of smpls
+    handl_num_train_frame: 0  # number of smpls
+    fix_handr_num_train_frame: 0  # number of smpls
+    handr_num_train_frame: 0  # number of smpls
+
+view_dirs_statics_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    renderer_module: 'lib.networks.renderer.tpose_view_dirs_statics_renderer'
+    trainer_module: 'lib.train.trainers.tpose_forward_trainer'
+    visualizer_module: 'lib.visualizers.view_dirs_statics'
+
+
+    z_interval: 0.005
+    N_samples: 1
+    test:
+        sampler: ''
+
+face_vis_statics_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    test_dataset_module: 'lib.datasets.totalselfscan.tpose_fwrender_bfh_multi_dataset'
+    renderer_module: 'lib.networks.renderer.tpose_face_vis_statics_renderer'
+    trainer_module: 'lib.train.trainers.tpose_forward_trainer'
+    visualizer_module: 'lib.visualizers.face_vis_statics'
+
+
+    z_interval: 0.005
+    N_samples: 1
+    test:
+        sampler: ''
+
+
+train_init_sdf_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.sdf_3d_new_dataset'
+    trainer_module: 'lib.train.trainers.sdf_3d_trainer_multi_new'
+
+
+
+mesh_cfg:
+    train_dataset_module: 'lib.datasets.totalselfscan.tpose_frame_mesh_dataset_total'
+    test_dataset_module: 'lib.datasets.totalselfscan.tpose_frame_mesh_dataset_total'
+
+    network_module: 'lib.networks.totalselfscan.anisdf_bfh_multi_network_nointer_trick_rgb_base_total_union'

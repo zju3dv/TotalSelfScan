@@ -196,6 +196,7 @@ class Renderer:
         from psbody.mesh import Mesh
         from lib.utils.base_utils import read_pickle
         smplh = read_pickle('data/smplx/smplh/SMPLH_MALE.pkl')
+        import ipdb; ipdb.set_trace(context=11)
         smplh_bw = smplh['weights'].astype(np.float32)
         pts = pts[0].cpu().numpy()
         vertices = batch['tpose'][0].cpu().numpy()

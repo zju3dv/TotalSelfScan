@@ -17,7 +17,7 @@ python run.py --type visualize --cfg_file configs/anisdf_zju_djt415_tshirt.yaml 
 # register body-face and face
 python tools/finetune_face_pose.py --path ./data/animation/release_tshirt_face_bound0.1 --bodypath ./data/animation/release_old_tshirt_body/ --debug
 # full
-python train_net.py --cfg_file configs/anisdf_zju_djt415_tshirt.yaml  exp_name release_tshirt_full init_sdf sq_smplh_multi_2 train.epoch 400 fix_body False fix_face True fix_handl True fix_handr True handl_num_train_frame 0 handr_num_train_frame 0 face_num_train_frame 0  ratio 0.5 init_face release_tshirt_face_bound0.1 init_handl release_tshirt_handl init_handr release_tshirt_handr trick_sample True gpus 1, train_full True
+python train_net.py --cfg_file configs/anisdf_zju_djt415_tshirt.yaml  exp_name release_tshirt_full init_sdf sq_smplh_multi_2 train.epoch 400 fix_body False fix_face True fix_handl True fix_handr True handl_num_train_frame 0 handr_num_train_frame 0 face_num_train_frame 0  ratio 0.5 init_face release_tshirt_face_bound0.1 init_handl release_tshirt_handl init_handr release_tshirt_handr trick_sample True gpus 1,
 # remove the debug.single_part flag
 # obtain the mesh
 python run.py --type visualize --cfg_file configs/anisdf_zju_djt415_tshirt.yaml exp_name release_tshirt_full resume True vis_tpose_mesh True num_train_frame 1 train.num_workers 0 part_type 0 gpus 1, init_face release_tshirt_face_bound0.1

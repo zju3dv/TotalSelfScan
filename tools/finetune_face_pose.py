@@ -164,9 +164,9 @@ def register_flame2smplh():
 
     inside_idx = get_inside(pred_pts_ori[0].cpu().numpy(), pred_pts_bound)
     pred_pts = pred_pts_ori[0, inside_idx]
-    from lib.utils.debugger import dbg
-    dbg.showL3D([gt_pts.cpu()[::20], pred_pts.cpu()[::20]])
-    import ipdb; ipdb.set_trace(context=11)
+    # from lib.utils.debugger import dbg
+    # dbg.showL3D([gt_pts.cpu()[::20], pred_pts.cpu()[::20]])
+    # import ipdb; ipdb.set_trace(context=11)
     if pred_pts.shape[0] > 40000:
         downsample_scale = pred_pts.shape[0] // 40000
         pred_pts = pred_pts[::downsample_scale, :]

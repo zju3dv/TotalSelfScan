@@ -1,5 +1,5 @@
 # TotalSelfScan: Learning Full-body Avatars from Self-Portrait Videos of Faces, Hands, and Bodies
-### [Project Page](https://zju3dv.github.io/TotalSelfScan/) | [Video](https://www.youtube.com/watch?v=zbNJsqhkees) | [Paper](https://openreview.net/pdf?id=lgj33-O1Ely) | [Data]
+### [Project Page](https://zju3dv.github.io/TotalSelfScan/) | [Video](https://www.youtube.com/watch?v=zbNJsqhkees) | [Paper](https://openreview.net/pdf?id=lgj33-O1Ely) | [Data](https://zjueducn-my.sharepoint.com/:u:/g/personal/12021137_zju_edu_cn/EdhoMoT9JaJFlC3BQrmCWykBErOCx5Q21CXp2mTGikdAJw?e=umAl4n)
 
 > [TotalSelfScan: Learning Full-body Avatars from Self-Portrait Videos of Faces, Hands, and Bodies](https://openreview.net/pdf?id=lgj33-O1Ely)  
 > Junting Dong*, Qi Fang*, Yudong Guo, Sida Peng, Qing Shuai, Hujun Bao, Xiaowei Zhou  
